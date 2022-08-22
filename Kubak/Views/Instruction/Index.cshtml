@@ -1,0 +1,131 @@
+﻿@using Kubak.ViewModels;
+@using Kubak.Models;
+@model InstructionsViewModel;
+
+
+@{
+    foreach (var cat in Model.Categories)
+    {
+        <ul>
+            @{
+                ShowNode(cat);
+            }
+        </ul>
+    }
+    void ShowNode(InstructionCategory category)
+    {
+        <li>
+            <span class="caret">@category.Name</span>
+
+            <ul class="nested">
+                @foreach (var i in category.ChildCategories)
+                {
+                    <li>
+                        @{
+                            ShowNode(i);
+                        }
+                    </li>
+                }
+                @foreach (var i in category.Instructions)
+                {
+                    <li>
+                        <a href="https://docs.google.com/document/d/1AmyUi9dMgBLwDnOuvxUtDfy0A-X8eT8dcJV2yncME2c/edit?usp=sharing">@i.Name</a>
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+}
+
+<p>
+    <a asp-action="CreateInstruction">Create New Instruction</a>
+</p>
+
+<p>
+    <a asp-action="CreateCategory">Create New Category</a>
+</p>
+
+
+@*<ul id="myUL">
+    <li>
+    <span class="caret">Beverages</span>
+    <ul class="nested">
+    <li>Water</li>
+    <li>Coffee</li>
+    <li>
+    <span class="caret">Tea</span>
+    <ul class="nested">
+    <li>Black Tea</li>
+    <li>White Tea</li>
+    <li>
+    <span class="caret">Green Tea</span>
+    <ul class="nested">
+    <li>Sencha</li>
+    <li>Gyokuro</li>
+    <li>Matcha</li>
+    <li>Pi Lo Chun</li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>*@
+
+<script>
+    document.getElementsByClassName
+    var toggler = document.getElementsByClassName("caret");
+    var i;
+
+    console.log(toggler.length);
+
+    for (i = 0; i < toggler.length; i++) {
+      toggler[i].addEventListener("click", function() {
+        console.log("Test");
+        this.parentElement.querySelector(".nested").classList.toggle("active");
+        this.classList.toggle("caret-down");
+      });
+    }
+</script>
+
+<style>
+    /* Remove default bullets */
+    ul, #myUL {
+        list-style-type: none;
+    }
+
+    /* Remove margins and padding from the parent ul */
+    #myUL {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Style the caret/arrow */
+    .caret {
+        cursor: pointer;
+        user-select: none; /* Prevent text selection */
+    }
+
+        /* Create the caret/arrow with a unicode, and style it */
+        .caret::before {
+            content: "\25B6";
+            color: black;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+    /* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+    .caret-down::before {
+        transform: rotate(90deg);
+    }
+
+    /* Hide the nested list */
+    .nested {
+        display: none;
+    }
+
+    /* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+    .active {
+        display: block;
+    }
+</style>
