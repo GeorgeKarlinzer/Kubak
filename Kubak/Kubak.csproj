@@ -4,10 +4,10 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-Kubak-A62C8D20-8C7F-45AA-8D22-31DE36D7A9D1</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNetOpenAuth" Version="4.3.4.13329" />
     <PackageReference Include="Google.Apis.Calendar.v3" Version="1.57.0.2759" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.4" />

@@ -1,8 +1,10 @@
 ﻿using Kubak.Data;
 using Kubak.Models;
 using Kubak.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Kubak.Controllers
 {
@@ -17,28 +19,37 @@ namespace Kubak.Controllers
             _context = dbContext;
         }
 
+        [Authorize]
         public IActionResult CreateCategory()
         {
             return View();
         }
 
+        [Authorize]
         public IActionResult CreateInstruction()
         {
             return View();
         }
 
+        [Authorize]
         public IActionResult Index()
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userOrganization = _context.UserOrganizations.First(x => x.UserId == userId);
+
             var instructions = _context.Instructions
-                .Include(x => x.Category).ToList();
+                .Where(x => x.OrganizationId == userOrganization.OrganizationId)
+                .ToList()
+                .Where(x => x.CategoryId is null);
             var categories = _context.InstructionCategories
-                .Include(x => x.Instructions)
-                .Include(x => x.ChildCategories).ToList();
+                .Where(x => x.OrganizationId == userOrganization.OrganizationId)
+                .ToList()
+                .Where(x => x.CategoryId is null);
 
             var viewModel = new InstructionsViewModel
             {
-                Instructions = instructions.Where(x => x.CategoryId is null),
-                Categories = categories.Where(x => x.CategoryId is null)
+                Instructions = instructions,
+                Categories = categories
             };
 
             return View(viewModel);

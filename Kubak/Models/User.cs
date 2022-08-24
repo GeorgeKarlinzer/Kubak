@@ -1,13 +1,10 @@
-﻿namespace Kubak.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace Kubak.Models
 {
-    public class User
+    public class User : IdentityUser<string>
     {
-        public int Id { get; set; }
-        public string UserName { get; set; }
-        public string PasswordHash { get; set; }
-        public string Salt { get; set; }
-        public string Email { get; set; }
-        public bool IsEmailConfirmed { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public ICollection<UserOrganization> Organizations { get; set; }
+        public ICollection<CalendarEvent> CalendarEvents { get; set; }
     }
 }

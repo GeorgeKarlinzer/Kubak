@@ -1,4 +1,6 @@
-﻿namespace Kubak.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace Kubak.Models
 {
     public class Organization
     {
@@ -7,6 +9,7 @@
 
         public ICollection<Instruction> Instructions { get; set; }
         public ICollection<InstructionCategory> InstructionCategories { get; set; }
+        public ICollection<UserOrganization> UserOrganizations { get; set; }
 
         public Organization()
         {
