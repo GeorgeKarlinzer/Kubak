@@ -1,4 +1,28 @@
-﻿@model Kubak.Models.InstructionCategory
+﻿@model InstructionCategory;
 
-<h1>Create</h1>
-<h1>Category</h1>
+<h1>Create New Category</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateCategory">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" value="New Category"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                @Html.DropDownListFor(m => m.CategoryId, 
+                        new SelectList(
+                            ViewBag.Categories,
+                            "Id",
+                            "Name"
+                        )
+                )
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

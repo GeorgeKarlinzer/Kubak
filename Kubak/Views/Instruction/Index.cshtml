@@ -12,10 +12,17 @@
             }
         </ul>
     }
+    foreach (var i in Model.Instructions)
+    {
+        <a style="margin: 3%" href="@i.Link">@i.Name</a>
+    }
     void ShowNode(InstructionCategory category)
     {
         <li>
-            <span class="caret">@category.Name</span>
+            <div class="caret">
+                <span style="float: left">@category.Name</span>
+                <button style="float: left">aaaaa</button>
+            </div>
 
             <ul class="nested">
                 @foreach (var i in category.ChildCategories)
@@ -29,7 +36,7 @@
                 @foreach (var i in category.Instructions)
                 {
                     <li>
-                        <a href="https://docs.google.com/document/d/1AmyUi9dMgBLwDnOuvxUtDfy0A-X8eT8dcJV2yncME2c/edit?usp=sharing">@i.Name</a>
+                        <a href="@i.Link">@i.Name</a>
                     </li>
                 }
             </ul>
@@ -38,11 +45,11 @@
 }
 
 <p>
-    <button asp-action="CreateInstruction">Create New Instruction</button>
+    <a asp-action="CreateInstruction">Create New Instruction</a>
 </p>
 
 <p>
-    <button asp-action="CreateCategory">Create New Category</button>
+    <a asp-action="CreateCategory">Create New Category</a>
 </p>
 
 
@@ -51,11 +58,8 @@
     var toggler = document.getElementsByClassName("caret");
     var i;
 
-    console.log(toggler.length);
-
     for (i = 0; i < toggler.length; i++) {
       toggler[i].addEventListener("click", function() {
-        console.log("Test");
         this.parentElement.querySelector(".nested").classList.toggle("active");
         this.classList.toggle("caret-down");
       });
@@ -77,7 +81,6 @@
     /* Style the caret/arrow */
     .caret {
         cursor: pointer;
-        user-select: none; /* Prevent text selection */
     }
 
         /* Create the caret/arrow with a unicode, and style it */
@@ -102,4 +105,13 @@
     .active {
         display: block;
     }
+
+    .wrapper {
+        width: auto;
+    }
+
+    .box {
+        float: left;
+    }
+
 </style>

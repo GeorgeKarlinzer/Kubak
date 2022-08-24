@@ -1,6 +1,4 @@
-﻿using Kubak.Models;
-
-namespace Kubak.ViewModels
+﻿namespace Kubak.ViewModels
 {
     public class InstructionsViewModel
     {
